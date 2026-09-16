@@ -1,0 +1,55 @@
+def moving_profile(max_velocety,target_distance,acceleration) 
+drive_base.stop 
+drive_base.reset()
+max_v=abs(max_velocety)
+accel=abs(acceleration)
+target_d(target_distance)
+left_motor.reset_angle(0)
+right_motor.reset_angle(0)
+
+travelled_d = 0
+speed = 0
+reached_max_v = False
+   speed_distance = (max_v ** 2) / (2 * accel)
+    if target_d >= speed_distance * 2:
+    deceleration_distance = (max_v ** 2) / (2 * accel)
+    acceleration_distance = speed_distance
+    deceleration_distance = speed_distance
+    profile_speed = max_v
+    else:
+         half_distance = target_d / 2
+    acceleration_distance = half_distance
+    deceleration_distance = half_distance
+    profile_speed = (2 * accel * half_distance) ** 0.5
+    while travled_distance <= target_distance
+    drive(x,y)
+    diameter = 6.24
+    pi = 3.1415926535 
+    circunference = diameter * pi
+    left_degrees= abs(left_motor.angle())
+    right_degrees = abs(right_motor.angle())
+    average_degrees = (left_degrees + right_degrees) / 2 
+        wheel_r(wheel rotations) = i 
+        average_degrees/360 = wheel_r
+        traveled_d(the distance the wheels traveleled) = d 
+        travelled_d = circunference * wheel_r
+        print("Travelled_distance:", travelled_d)
+    left_motor.run(current_speed)
+    right_motor.run(current_speed)
+    current_speed += 1
+if speed + acceleration > max_v:
+    speed = max_v
+else:
+    speed = speed + accel
+if speed == max_v and reached_max_v == False:
+    reached_max_v = True
+
+drive_base.drive(speed, steering)
+
+print("Travelled distance:", travelled_d)
+print("Speed:", speed)
+remaining_distance = target_d - travelled_d
+if remaining_d < deceleration_distance:
+    speed = speed - accel
+    if speed < 0:
+        speed = 0
