@@ -54,17 +54,16 @@ def moving_profile(max_velocety,target_distance,acceleration):
     left_motor.run(current_speed)
     right_motor.run(current_speed)
     current_speed += 1
+
 remaining_distance = target_d - travelled_d
- if remaining_distance <= deceleration_distance:        
-    speed = speed - accel     
-    if speed < 0:         
-    speed = 0 
-    elif speed < profile_speed:          
-        if speed + accel > profile_speed:         
-            speed = profile_speed     
-            elif         
-                speed = speed + accel 
-                else:     
-                    speed = profile_speed     
-drive_base.drive(speed, steering)
-remaining_distance = target_d - travelled_d
+ if speed < profile_speed:          
+    speed + accel > profile_speed:  
+    speed = speed + accel           
+    drive_base.drive(speed, steering)
+elif speed = profile_speed  
+      drive_base.drive(speed, steering)
+ elif remaining_distance <= deceleration_distance:        
+    speed = speed - accel 
+     drive_base.drive(speed, steering)
+ else: 
+    drive_base.stop    
