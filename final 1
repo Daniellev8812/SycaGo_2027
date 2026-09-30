@@ -1,0 +1,74 @@
+from pybricks.tools import StopWatch, wait
+from umath import pi
+from parameters import * 
+
+diameter = 6.24
+
+def calculate_distance():
+    circunference = diameter * pi
+    left_degrees= abs(left_motor.angle())
+    right_degrees = abs(right_motor.angle())
+
+    average_degrees = (left_degrees + right_degrees) / 2 
+    wheel_r = average_degrees/360 
+    travelled_d = circumference * wheel_r
+    return travelled_d
+
+def calculate_profile(max_velocity,target_distance,acceleration):
+    max_v=abs(max_velocity)
+    accel=abs(acceleration)
+    profile_distance = abs(target_distance)
+
+    speed_distance = (max_v ** 2) / (2 * accel)
+
+    if profile_distance >= speed_distance * 2:
+        acceleration_distance = speed_distance
+        deceleration_distance = speed_distance
+        profile_speed = max_v
+
+    else:
+        acceleration_distance = profile_distance / 2
+        deceleration_distance = profile_distance / 2
+        profile_speed = (2 * accel * acceleration_distance) ** 0.5
+
+    return (acceleration_distance,deceleration_distance,profile_speed)
+    
+def moving_profile(max_velocity,target_distance,acceleration):
+    drive_base.stop 
+    drive_base.reset()
+
+    max_v=abs(max_velocity)
+    accel=abs(acceleration)
+    target_d= target_distance
+    profile_distance = abs(target_distance)
+
+    left_motor.reset_angle(0)
+    right_motor.reset_angle(0)
+
+    travelled_d = 0
+    speed = 0
+    Direction = 1
+
+    if profile_distance < 0:
+        Direction = -1 
+
+    while travelled_d <= target_distance :
+    travelled_d = calculate_distance()
+    remaining_distance = target_d - travelled_d
+
+    left_motor.run(current_speed)
+    right_motor.run(current_speed)
+
+    if speed + accel > profile_speed:  
+        drive_base.drive(speed, steering) 
+        speed = speed + accel           
+   
+    elif speed = profile_speed  
+        drive_base.drive(speed, steering)
+
+    else : 
+        speed >= 0
+        remaining_distance <= deceleration_distance:        
+        speed = speed - accel 
+        speed = 0
+        drive_base.stop ()
