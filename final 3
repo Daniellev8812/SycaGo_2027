@@ -2,7 +2,7 @@ from pybricks.tools import StopWatch, wait
 from umath import pi
 from parameters import * 
 
-diameter = 6.24
+diameter = 62.4
 
 def calculate_distance():
     circumference = diameter * pi
@@ -35,8 +35,9 @@ def calculate_profile(max_velocity,target_distance,acceleration):
     return (acceleration_distance,deceleration_distance,profile_speed)
     
 def moving_profile(max_velocity,target_distance,acceleration):
+   
     timer = StopWatch()
-    
+  
     drive_base.stop()
     drive_base.reset()
 
@@ -44,26 +45,30 @@ def moving_profile(max_velocity,target_distance,acceleration):
     max_v=abs(max_velocity)
     accel=abs(acceleration)
     profile_distance = abs(target_d)
-
+    
     left_motor.reset_angle(0)
     right_motor.reset_angle(0)
-
+    
     travelled_d = 0
     speed = 0
     Direction = 1
-    dt = 0.01
-   
-    if profile_distance < 0:
-        Direction = -1 
+    min_speed = 50
+    last_גtime = 0
 
-        
+   
+    if target_d < 0:
+        Direction = -1              
+
     
-     deceleration_distance , acceleration_distance , profile_speed = calculate_profile () 
+    acceleration_distance, deceleration_distance, profile_speed = calculate_profile(max_velocity, target_distance, acceleration) 
 
     while travelled_d < profile_distance:
+        now = timer.time()              
+        dt = (now - last_time) / 1000      
+        last_time = now        
     
-    travelled_d = calculate_distance()
-    remaining_distance = profile_distance - travelled_d
+        travelled_d = calculate_distance()
+        remaining_distance = profile_distance - travelled_d
 
         if travelled_d < acceleration_distance:
             speed = min(speed + accel * dt , profile_speed)
@@ -77,4 +82,5 @@ def moving_profile(max_velocity,target_distance,acceleration):
         drive_base.drive(speed * Direction, 0)
         wait(10)
 
-    drive_base.stop()
+        drive_base.stop()
+        print(timer.time)
