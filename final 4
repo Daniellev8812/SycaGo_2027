@@ -6,8 +6,8 @@ diameter = 62.4
 
 def calculate_distance():
     circumference = diameter * pi
-    left_degrees= abs(left_motor.angle())
-    right_degrees = abs(right_motor.angle())
+    left_degrees= abs(left_wheel_motors.angle())
+    right_degrees = abs(right_wheel_motors.angle())
 
     average_degrees = (left_degrees + right_degrees) / 2 
     wheel_r = average_degrees/360 
@@ -34,7 +34,7 @@ def calculate_profile(max_velocity,target_distance,acceleration):
 
     return (acceleration_distance,deceleration_distance,profile_speed)
     
-def moving_profile(max_velocity,target_distance,acceleration):
+def motion_profile(max_velocity,target_distance,acceleration):
    
     timer = StopWatch()
   
@@ -46,14 +46,14 @@ def moving_profile(max_velocity,target_distance,acceleration):
     accel=abs(acceleration)
     profile_distance = abs(target_d)
     
-    left_motor.reset_angle(0)
-    right_motor.reset_angle(0)
+    left_wheel_motorshk.reset_angle(0)
+    right_wheel_motors.reset_angle(0)
     
     travelled_d = 0
     speed = 0
     Direction = 1
     min_speed = 50
-    last_גtime = 0
+    last_time = 0
 
    
     if target_d < 0:
@@ -82,5 +82,5 @@ def moving_profile(max_velocity,target_distance,acceleration):
         drive_base.drive(speed * Direction, 0)
         wait(10)
 
-        drive_base.stop()
-        print(timer.time)
+    drive_base.stop()
+    print(timer.time())
