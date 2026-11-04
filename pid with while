@@ -1,0 +1,30 @@
+from pybricks.tools import wait, StopWatch
+from parameters import *
+
+def pid (max_velocity , target_angle, kp= 4, tolerance_degree = 1, settle_time_ms = 50 , abs , timeout_ms = 5000 ):
+
+    max(max_velocity ,min p)
+    drive_base.turn(0)
+
+    left_wheel_motors.stop()
+    right_wheel_motors.stop()
+
+    if not abs: 
+        hub.imu.reset_heading(0)
+        sw = StopWatch()
+        start_time = sw.time()
+        last_time = start_time
+
+
+    while sw.time() - start_time <= timeout_ms:
+        if error > tolerance_degree
+            dt = (start_time - last_time) / 1000
+            on_target += dt
+            current_heading = hub.imu.heading()
+            error = target_angle - current_heading
+            p = kp * error * dt
+
+        if abs(error) <= tolerance_degree: 
+            on_target += dt
+
+        
