@@ -1,47 +1,36 @@
 from pybricks.tools import wait, StopWatch
 from parameters import *
 
-def pid(
-    max_velocity,
-    target_angle,
-    kp=4,
-    kd= 0.3, 
-    ki= 0.1, 
-    tolerance_degree=1,
-    settle_time_ms=50,
-    absolute=True,
-    timeout_ms=5000
-):
-    drive_base.turn(0)
+def pid(max_velocity,target_angle,kp=8,kd=0.3,ki=0.1,tolerance_degree=1,settle_time_ms=50,timeout_ms=5000,integral_limit=100):
 
     left_wheel_motors.stop()
     right_wheel_motors.stop()
+    hub.imu.reset_heading(0)
 
-    if not absolute:
-        hub.imu.reset_heading(0)
     sw = StopWatch()
     start_time = sw.time()
     on_target = 0
 
     last_error = target_angle - hub.imu.heading()
-    last_time = sw.time() 
+    last_time = sw.time()
 
-    integral = 0  
+    integral = 0
 
     while sw.time() - start_time < timeout_ms:
-
         current_heading = hub.imu.heading()
         error = target_angle - current_heading
 
         now = sw.time()
         dt = (now - last_time) / 1000
-        d = kd * (error-last_error)/ dt
 
-        integral += dt * error
-        i = integral * ki
+        if dt > 0:
+            d = kd * (error - last_error) / dt
+        else:
+            d = 0
 
         if abs(error) <= tolerance_degree:
-            on_target += 10
+            on_target += dt * 1000
+            integral = 0
 
             left_wheel_motors.brake()
             right_wheel_motors.brake()
@@ -52,15 +41,20 @@ def pid(
         else:
             on_target = 0
 
+            integral += dt * error
+            integral = max(-integral_limit, min(integral, integral_limit))
+
             p = kp * error
+            i = ki * integral
+
             correction = p + i + d
-            correction = max(-max_velocity, min(p, max_velocity))
+            correction = max(-max_velocity, min(correction, max_velocity))
 
             left_wheel_motors.run(correction)
             right_wheel_motors.run(-correction)
 
-            last_error = error
-            last_time = now
+        last_error = error
+        last_time = now
 
         wait(10)
 
