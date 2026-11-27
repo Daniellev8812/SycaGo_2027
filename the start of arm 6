@@ -1,0 +1,10 @@
+from pybricks.hubs import PrimeHub
+from parameters import *
+from motion_profile import motion_profile
+from pid import pid
+
+hub = PrimeHub()
+right_arm.run_angle(1000, 500)
+ 
+
+
