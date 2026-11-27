@@ -6,12 +6,12 @@ from pybricks.tools import wait, StopWatch
 
 hub = PrimeHub()
 
-right_wheel_motors = Motor(Port.A)
-left_wheel_motors = Motor(Port.B, Direction.COUNTERCLOCKWISE)
-left_arm = Motor(Port.D, Direction.COUNTERCLOCKWISE)
-right_arm = Motor(Port.F)
-right_colorsensor = ColorSensor(Port.C)
-left_colorsensor = ColorSensor(Port.E)
+right_wheel_motors = Motor(Port.E)
+left_wheel_motors = Motor(Port.D, Direction.COUNTERCLOCKWISE)
+left_arm = Motor(Port.A, Direction.COUNTERCLOCKWISE)
+right_arm = Motor(Port.C)
+right_colorsensor = ColorSensor(Port.B)
+left_colorsensor = ColorSensor(Port.F)
 WHEEL_DIAMETER = 62.4
 AXLE_TRACK = 130
 drive_base = DriveBase(left_wheel_motors, right_wheel_motors, WHEEL_DIAMETER, AXLE_TRACK)
