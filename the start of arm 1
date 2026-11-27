@@ -1,0 +1,11 @@
+from pybricks.hubs import PrimeHub
+from parameters import *
+from motion_profile import motion_profile
+from pid import pid
+
+hub = PrimeHub()
+
+motion_profile(1000,700,1000)
+wait(50)
+motion_profile(1000,-700,1000)
+
